@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JWT Decoder and Verifier Tool
+
+A modern web application built with Next.js, React, TypeScript, and shadcn/ui to decode and verify JWT (JSON Web Tokens).
+
+## Features
+
+- **JWT Decoding**: Parse and display JWT token header, payload, and signature
+- **JWT Verification**:
+  - Asymmetric key verification (RSA/EC) using public keys in PEM format
+  - Symmetric key verification (HMAC) using shared secret keys
+- **OpenID Connect Support**: Verify tokens by fetching JWKs from OpenID providers
+- **CORS Proxy Integration**: Automatic fallback to corsproxy.io for CORS-blocked OpenID providers
+- **Modern UI**: Built with shadcn/ui components for a clean, accessible interface
+- **Dark Mode Support**: Fully responsive design with dark mode support
+
+## Tech Stack
+
+- **Framework**: Next.js (App Router)
+- **Language**: TypeScript
+- **UI Components**: shadcn/ui (Radix UI + Tailwind CSS)
+- **Form Handling**: React Hook Form with Zod validation
+- **JWT Libraries**: jose for JWT verification
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 18+ and npm
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   git clone https://github.com/Om1938/jwt-decoder.git
+   cd jwt-decoder
+   ```
 
-## Learn More
+2. Install dependencies:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Start the development server:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+4. Open [http://localhost:3000](http://localhost:3000) with your browser.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Usage
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Decoding JWT
+
+1. Paste your JWT token into the textarea
+2. The token will be automatically decoded
+3. View the header, payload, and signature in the tabs below
+
+### Verifying JWT
+
+#### With Asymmetric Keys (RSA/EC)
+
+1. Navigate to the "Verify" tab
+2. Select "Public Key (RSA/EC)" verification method
+3. Paste your JWT token
+4. Enter the public key in PEM format
+5. Optionally select an algorithm (if not specified in the token header)
+6. Click "Verify JWT"
+
+#### With Symmetric Keys (HMAC)
+
+1. Navigate to the "Verify" tab
+2. Select "Secret Key (HMAC)" verification method
+3. Paste your JWT token
+4. Enter the secret key that was used to sign the token
+5. Select the HMAC algorithm (HS256, HS384, or HS512)
+6. Click "Verify JWT"
+
+#### With OpenID Provider
+
+1. Navigate to the "Verify" tab
+2. Select "OpenID Provider" verification method
+3. Paste your JWT token
+4. Enter the OpenID issuer URL (e.g., `https://your-identity-provider.com/`)
+5. Optionally enable "Use CORS Proxy" if you experience CORS issues with the provider
+6. Click "Verify with OpenID Provider"
+
+### CORS Proxy Feature
+
+If you encounter CORS (Cross-Origin Resource Sharing) issues when verifying tokens with OpenID providers, the app includes:
+
+- Automatic fallback to corsproxy.io if direct requests fail due to CORS
+- Manual option to enable the CORS proxy for all OpenID-related requests
+- This allows verification against OpenID providers that don't have CORS properly configured
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
